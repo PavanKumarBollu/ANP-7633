@@ -5,4 +5,361 @@ conditional statements in java
 control Statements
 
 
+Multithreading
+=============
+A multithreaded program contains two or more parts that can run concurrently. Each part of such a program is called a thread, and each thread defines a separate path of execution. Thus, multithreading is a specialized form of multitasking
+
+However, there are two distinct types of multitasking: 
+
+process-based and thread-based. 
+
+It is important to understand the difference between the two. For many readers, process-based multitasking is the more familiar form. A process is, in essence, a program that is executing. Thus, process-based multitasking is the feature that allows your computer to run two or more programs concurrently. For example, process based multitasking enables you to run the Java compiler at the same time that you are using a text editor or visiting a web site. 
+
+In process-based multitasking, a program is the smallest unit of code that can be dispatched by the scheduler. In a thread-based multitasking environment, the thread is the smallest unit of dispatchable code. This means that a single program can perform two or more tasks simultaneously. For instance, a text editor can format text at the same time that it is printing, as long as these two actions are being performed by two separate threads. Thus, process-based multitasking deals with the “big picture,” and thread-based multitasking handles the details.
+
+Thread Priorities:-
+
+Thread Priorities Java assigns to each thread a priority that determines how that thread should be treated with respect to the others. Thread priorities are integers that specify the relative priority of one thread to another.
+
+The Main Thread :-
+
+When a Java program starts up, one thread begins running immediately. This is usually called the main thread of your program, because it is the one that is executed when your program begins. The main thread is important for two reasons: 
+ It is the thread from which other “child” threads will be spawned
+Often, it must be the last thread to finish execution because it performs various shutdown actions.
+
+	public static void main(String[] args) throws InterruptedException {
+		
+		 Thread thread = Thread.currentThread(); // ctrl + 2 , l
+		 System.out.println(thread.getName());
+		 thread.setName("My Thread");
+		 System.out.println(thread.getName());
+		 
+		 
+		 for(int i = 0; i<10; i++)
+		 {
+			 System.out.println(i);
+			 Thread.sleep(1000);
+		 }
+		
+	}
+
+Creating a Thread
+
+In the most general sense, you create a thread by instantiating an object of type Thread. Java defines two ways in which this can be accomplished: 
+• You can implement the Runnable interface. 
+• You can extend the Thread class, itself. The following two sections look at each method, in turn. 
+
+Implementing Runnable:
+
+The easiest way to create a thread is to create a class that implements the Runnable interface. Runnable abstracts a unit of executable code. You can construct a thread on any object that implements Runnable. To implement Runnable, a class need only implement a single method called run( ), which is declared like this: public void run( )
+
+public class NewThread implements Runnable {
+	Thread t;
+	
+	public NewThread()
+	{
+		t = new Thread(this, "Demo Thread");
+	}
+
+	@Override
+	public void run() {
+	try {
+		for(int i = 0; i<10; i++)
+		 {
+			 System.out.println("Child Thread :" + i);
+			 Thread.sleep(1000);
+		 }
+	} catch (Exception e) {
+		System.out.println("Child Thread Inturepted");
+	}
+	System.out.println("Child Thread Got finshed");
+
+	}
+public class TestRunnableChildThread {
+	public static void main(String[] args) throws InterruptedException {
+		
+		NewThread nt = new NewThread();
+		
+		nt.t.start();
+		
+		for(int i = 0; i<10; i++)
+		 {
+			 System.out.println("Main Thread"+i);
+			 Thread.sleep(1000);
+		 }
+	
+		System.out.println("Main Thread is getting stopped");
+		
+	}
+}
+
+Extending Thread:-
+The second way to create a thread is to create a new class that extends Thread, and then to create an instance of that class. The extending class must override the run( ) method, which is the entry point for the new thread. As before, a call to start( ) begins execution of the new thread. Here is the preceding program rewritten to extend Thread:
+
+package multithreading;
+
+public class ExtendingThreadClass extends Thread {
+
+	public ExtendingThreadClass() {
+		System.out.println("Child Thread : " + this);
+	}
+
+	public void run() {
+		try {
+			for (int i = 0; i < 10; i++) {
+				System.out.println("Child Thread :" + i);
+				Thread.sleep(1000);
+			}
+		} catch (Exception e) {
+			System.out.println("Child Thread Interrupted");
+		}
+	}
+	
+
+}
+package multithreading;
+
+public class TestExtendingThreadClass {
+	public static void main(String[] args) throws InterruptedException {
+		
+		
+		ExtendingThreadClass etc = new ExtendingThreadClass();
+		etc.start();
+		
+		for(int i = 0; i<10; i++)
+		 {
+			 System.out.println("Main Thread : "+i);
+			 Thread.sleep(1000);
+		 }
+	
+		System.out.println("Main Thread is getting stopped");
+	}
+
+}
+
+
+
+
+
+Choosing an Approach:-
+
+The answers to these questions turn on the same point. The Thread class defines several methods that can be overridden by a derived class. Of these methods, the only one that must be overridden is run( ). This is, of course, the same method required when you implement Runnable. Many Java programmers feel that classes should be extended only when they are being enhanced or adapted in some way. So, if you will not be overriding any of Thread’s other methods, it is probably best simply to implement Runnable. Also, by implementing Runnable, your thread class does not need to inherit Thread, making it free to inherit a different class. Ultimately, which approach to use is up to you.
+
+
+Creating Multiple Threads
+
+So far, you have been using only two threads: the main thread and one child thread. However, your program can spawn as many threads as it needs. For example, the following program creates three child threads:
+
+// NewThread.java
+public class NewThread implements Runnable {
+    private Thread thread;
+    private String threadName;
+
+    // Constructor to set thread name
+    public NewThread(String name) {
+        this.threadName = name;
+        System.out.println("Creating thread: " + threadName);
+    }
+
+    // The code that runs in the new thread
+    @Override
+    public void run() {
+        System.out.println("Running thread: " + threadName);
+        try {
+            for (int i = 5; i > 0; i--) {
+                System.out.println(threadName + " : " + i);
+                Thread.sleep(1000); // Sleep for 1 second
+            }
+        } catch (InterruptedException e) {
+            System.out.println(threadName + " interrupted.");
+        }
+        System.out.println(threadName + " exiting.");
+    }
+
+    // Method to start the thread
+    public void start() {
+        if (thread == null) {
+            thread = new Thread(this, threadName);
+            thread.start();
+        }
+    }
+
+    // Main method to test the NewThread class
+    public static void main(String[] args) {
+        NewThread t1 = new NewThread("Thread-1");
+        NewThread t2 = new NewThread("Thread-2");
+
+        t1.start();
+        t2.start();
+    }
+}
+
+
+
+Using isAlive( ) and join( ):- 
+
+often you will want the main thread to finish last. In the preceding examples, this is accomplished by calling sleep( ) within main( ), with a long enough delay to ensure that all child threads terminate prior to the main thread. However, this is hardly a satisfactory solution, and it also raises a larger question: How can one thread know when another thread has ended? Fortunately, Thread provides a means by which you can answer this question. Two ways exist to determine whether a thread has finished. First, you can call isAlive( ) on the thread. This method is defined by Thread, and its general form is shown here: final boolean isAlive( ) The isAlive( ) method returns true if the thread upon which it is called is still running. It returns false otherwise. While isAlive( ) is occasionally useful, the method that you will more commonly use to wait for a thread to finish is called join( ), shown here: final void join( ) throws InterruptedException This method waits until the thread on which it is called terminates. Its name comes from the concept of the calling thread waiting until the specified thread joins it. Additional forms of join( ) allow you to specify a maximum amount of time that you want to wait for the specified thread to terminate.
+class MultiThreadDemo {
+    public static void main(String args[]) {
+        NewThread nt1 = new NewThread("One");
+        NewThread nt2 = new NewThread("Two");
+        NewThread nt3 = new NewThread("Three");
+
+        // Start the threads
+        nt1.t.start();
+        nt2.t.start();
+        nt3.t.start();
+
+        System.out.println("Thread One is alive: " + nt1.t.isAlive());
+        System.out.println("Thread Two is alive: " + nt2.t.isAlive());
+        System.out.println("Thread Three is alive: " + nt3.t.isAlive());
+
+        // Wait for threads to finish
+        try {
+            System.out.println("Waiting for threads to finish...");
+            nt1.t.join();
+            nt2.t.join();
+            nt3.t.join();
+        } catch (InterruptedException e) {
+            System.out.println("Main thread Interrupted");
+        }
+
+        System.out.println("Thread One is alive: " + nt1.t.isAlive());
+        System.out.println("Thread Two is alive: " + nt2.t.isAlive());
+        System.out.println("Thread Three is alive: " + nt3.t.isAlive());
+
+        System.out.println("Main thread exiting.");
+    }
+}
+
+class NewThread implements Runnable {
+    String name;
+    Thread t;
+
+    NewThread(String threadName) {
+        name = threadName;
+        t = new Thread(this, name);
+        System.out.println("New thread: " + t);
+    }
+
+    public void run() {
+        try {
+            for (int i = 5; i > 0; i--) {
+                System.out.println(name + ": " + i);
+                Thread.sleep(1000);
+            }
+        } catch (InterruptedException e) {
+            System.out.println(name + " interrupted.");
+        }
+        System.out.println(name + " exiting.");
+    }
+}
+
+
+
+Interthread Communication
+nter-thread communication allows threads to coordinate with each other, usually when sharing resources.
+Java provides:
+
+wait() — makes the current thread wait until another thread calls notify() or notifyAll() on the same object.
+notify() — wakes up one waiting thread.
+notifyAll() — wakes up all waiting threads.
+These methods:
+
+Belong to java.lang.Object (not Thread).
+Must be called inside a synchronized block/method.
+Example: Producer-Consumer Problem
+
+
+// Inter-thread communication example
+class SharedResource {
+    private int data;
+    private boolean hasData = false;
+
+    // Producer puts data
+    public synchronized void produce(int value) throws InterruptedException {
+        while (hasData) {
+            wait(); // Wait until data is consumed
+        }
+        data = value;
+        hasData = true;
+        System.out.println("Produced: " + value);
+        notify(); // Notify consumer
+    }
+
+    // Consumer gets data
+    public synchronized int consume() throws InterruptedException {
+        while (!hasData) {
+            wait(); // Wait until data is produced
+        }
+        hasData = false;
+        System.out.println("Consumed: " + data);
+        notify(); // Notify producer
+        return data;
+    }
+}
+
+public class InterThreadExample {
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
+
+        // Producer thread
+        Thread producer = new Thread(() -> {
+            try {
+                for (int i = 1; i <= 5; i++) {
+                    resource.produce(i);
+                    Thread.sleep(500);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        // Consumer thread
+        Thread consumer = new Thread(() -> {
+            try {
+                for (int i = 1; i <= 5; i++) {
+                    resource.consume();
+                    Thread.sleep(800);
+                }
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+
+        producer.start();
+        consumer.start();
+    }
+}
+
+Deadlock:
+A deadlock occurs when two or more threads are blocked forever, each waiting for a resource (lock) held by another. This can happen whether the locks are on the same object or on different objects, depending on how synchronization is implemented.
+
+If two threads try to acquire locks on the same object in conflicting order, they can deadlock. More commonly, deadlocks occur when threads hold different object locks and each waits for the other to release its lock — creating a circular wait.
+
+Example with different objects:
+
+
+class Shared {
+   synchronized void test1(Shared s2) {
+       System.out.println(Thread.currentThread().getName() + " entered test1");
+       try { Thread.sleep(1000); } catch (InterruptedException e) {}
+       s2.test2();
+   }
+   synchronized void test2() {
+       System.out.println(Thread.currentThread().getName() + " entered test2");
+   }
+}
+public class DeadlockDemo {
+   public static void main(String[] args) {
+       Shared s1 = new Shared();
+       Shared s2 = new Shared();
+       Thread t1 = new Thread(() -> s1.test1(s2), "Thread1");
+       Thread t2 = new Thread(() -> s2.test1(s1), "Thread2");
+       t1.start();
+       t2.start();
+   }
+}
+
+
 
