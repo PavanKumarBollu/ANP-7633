@@ -1,0 +1,57 @@
+Project : Employee Salary Calculator
+
+
+Problem Statement:
+Create a Java application that stores information about a few employees and calculates their final salary.
+
+for Every Employee , Store the following deatils
+
+1. EmployeeId
+2. EmployeeName
+3. BasicSalary
+4. NumberOfWorkingDays
+5. NumberOfAbsentDays
+6. OvertimeHours
+
+
+the application of project should have the following:
+	display employee details
+	calculate lossofPay(LOP)
+	calculate overtime payment
+	calculate final salary
+later: Use Multithreading Concept to calculate salaries for multiple employees
+
+
+Salary Rules:
+	daily Salary	: basic Salary / working days
+	LOP 		: daily Salary x absent days
+	overtime pay 	: overtime hours x 100
+	final salary 	: basic salary - LOP + overtime pay
+
+
+How Many Classes do we need for completing the above task.?
+ans: 	1.Employee.java  => done
+	2.SalaryCalculator.java => done
+	3.Main.java => 
+	4.SalaryThread.java(optional)(this class is for calculating multiple employee salaries)
+
+Employee_Salary_Calculator
+│
+└── src
+    │
+    ├── Employee.java
+    ├── SalaryCalculator.java
+    ├── SalaryThread.java(Optional)
+    └── Main.java
+
+
+
+
+
+
+
+
+
+
+
+
