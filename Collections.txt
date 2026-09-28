@@ -1,0 +1,72 @@
+The Challenge: "Student Data Manager"
+imagine you are asked to create a simple java program for you anudip
+
+assume that anudip has 5 employees 
+
+write down how do you manage the following 5 employees
+101 - pavan
+102 - kumar
+103 - Yadav
+104 - Rohit
+105 - sharma
+
+your program should allow the following operations
+1. add new student
+2. display all the students
+3. search for a student
+4. remove a student
+5. count students
+
+
+
+level 1 : 
+String student1 = "Rahul";
+String student2 = "Priya";
+String student3 = "Arjun";
+String student4 = "Sneha";
+String student5 = "Kiran";
+
+there are total 5 students are there 
+what if we have 100 , 1000, 10000, 100000
+
+
+
+level 2: using arrays
+we can solve the above problem by using the arrays
+
+String[] students = new String[5];
+
+what if the manager comes and ask us to join couple of more students 
+this is not possible in array
+but we can do the following
+orginal : String[] students = new String[5];
+new : String[] studentsUpdated = new String[100];
+-> copy the old students names and put in studentsUpdated array then add new students
+
+now assume that anudip has grown up now it contains more number of students
+String[] students = new String[1000000];
+we can't guarantee that we will use all the 1 lac slots so there is high change that we may west some memory
+
+
+
+solution:
+search for Java Collection Framework
+don't copy any code just understand the following
+1.What is the Java Collection Framework?
+2.Why was it introduced?
+3.What problems does it solve?
+4.Why isn't an array enough?
+5. What is the difference between: LIst vs Set vs Map
+6. Why does Java have different Collection types?
+
+7. 	| Your Problem                  | Java Solution |
+	| ----------------------------- | ------------- |
+	| Size keeps changing           | ?             |
+	| Need ordered elements         | ?             |
+	| Don't want duplicates         | ?             |
+	| Need key → value relationship | ?             |
+	| Need easy insertion/removal   | ?             |
+	| Need fast lookup by key       | ?             |
+
+
+
