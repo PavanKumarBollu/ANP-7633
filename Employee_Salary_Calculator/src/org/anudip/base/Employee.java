@@ -25,5 +25,13 @@ public class Employee {
 		System.out.println("AbsentDays :" + absentDays);
 		System.out.println("Overtime Hours :" + overTimeHours);
 	}
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", basicSalary=" + basicSalary + ", workingDays=" + workingDays
+				+ ", absentDays=" + absentDays + ", overTimeHours=" + overTimeHours + "]";
+	}
+	
 
+	
+	
 }

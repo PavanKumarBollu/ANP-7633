@@ -1,5 +1,7 @@
 package org.anudip.base;
 
+import java.util.ArrayList;
+
 public class Main {
 
 	public static void main(String[] args) {
@@ -9,18 +11,28 @@ public class Main {
 		Employee e4 = new Employee(104, "Kohlli", 1000000, 30, 10, 20);
 		
 
-		System.out.println("Employeee Details");
-		System.out.println("==================");
-		e1.displayEmployee();System.out.println();
-		e2.displayEmployee();System.out.println();
-		e3.displayEmployee();System.out.println();
-		e4.displayEmployee();System.out.println();
+		ArrayList<Employee> emps = new ArrayList<Employee>();
+		emps.add(e1);
+		emps.add(e2);
+		emps.add(e3);
+		emps.add(e4);
+//		System.out.println(emps);
+//		System.out.println(emps.get(3));
 		
 		
-		SalaryCalculator calSalary = new SalaryCalculator();
-		calSalary.displaySalary(e1);
-		calSalary.displaySalary(e2);
-		calSalary.displaySalary(e3);
-		calSalary.displaySalary(e4);
+		
+		/*
+		 * System.out.println("Employeee Details");
+		 * System.out.println("==================");
+		 * e1.displayEmployee();System.out.println();
+		 * e2.displayEmployee();System.out.println();
+		 * e3.displayEmployee();System.out.println();
+		 * e4.displayEmployee();System.out.println();
+		 * 
+		 * 
+		 * SalaryCalculator calSalary = new SalaryCalculator();
+		 * calSalary.displaySalary(e1); calSalary.displaySalary(e2);
+		 * calSalary.displaySalary(e3); calSalary.displaySalary(e4);
+		 */
 	}
 }

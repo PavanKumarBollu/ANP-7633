@@ -70,3 +70,30 @@ don't copy any code just understand the following
 
 
 
+
+
+
+What is the collection framework .?
+
+the java collection framework is a set of interfaces and classes provided by java to store and manipulate groups of objects(data). 
+
+instead of creating data structures from scratch , java gives us ready-made implementations. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
