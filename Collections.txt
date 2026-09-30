@@ -80,12 +80,198 @@ the java collection framework is a set of interfaces and classes provided by jav
 instead of creating data structures from scratch , java gives us ready-made implementations. 
 
 
+For Example :
+ArrayList 
+HashSet
+HashMap
+LinkedList
+TreeSet
+TreeMap
+
+:- 9 Important interface of Collection Framework. ?
+a. Collection(I)
+b. List(I)
+c. Set(I)
+d. SortedSet(I)
+e. NavigableSet(I)
+f. Queue(I)
+g. Map(I)
+h. SortedMap(I)
+i. NavigableMap(I)
+
+
+ArrayList(C)
+1. DataStructure: Growable Array / Sizable Array / Dynamic Array
+2. Duplicates are allowed to store in ArrayList
+3. insertion Order is preserved through index.
+4. Heterogenous objects are allowed to store in ArrayList.
+5. null insertion is also possible 
+
+Movie Watchlist Manager
+
+Problem Statement
+
+You are building a simple Movie Watchlist Manager.
+
+A user wants to maintain a list of movies they want to watch.
+
+The number of movies is unknown, so using an ArrayList is more suitable than a fixed-size array.
+
+Your job is to create a Java program that manages the watchlist.
+
+Step 1 — Create the ArrayList
+Step 2 — Add Movies
+Step 3 — Display Individual Movies
+Step 4 — Update a Movie
+Step 5 — Remove a Movie
+Step 6 — Search for a Movie
+Step 7 — Count Movies
+Step 8 — Display Movies One by One
+
+
+at the end the program should support the following 
+1. Add movie
+2. Display all movies
+3. Display first movie
+4. Display last movie
+5. Update movie
+6. Remove movie
+7. Search movie
+8. Count movies
+9. Display movies one by one
 
 
 
+LinkedList
+==========
+
+if ArrayList Already works, why does java provide LinkedList
+
+
+An ArrayList is internally based on a resizable array
+
+ArrayList
+
+[ Rahul ][ Priya ][ Arjun ][ Sneha ][ Kiran ]
+    0       1        2        3        4
+
+but the Linked List works differently 
+
+
+LinkedList
+
+[ Rahul ] → [ Priya ] → [ Arjun ] → [ Sneha ]
+
+Each Element is connected to another element 
+
+inside an LinkedList each element we call it as A NODE
+
+A Node basically contains the following
+
++---------+---------+
+|  Data   |  Link   |
++---------+---------+
+
+[ Rahul ] → [ Priya ] → [ Arjun ] → [ Sneha ]
+
+Rahul is the data
+there is a link to Priya
+
+Priya is the data
+there is a link to Arjun ....
+
+this is the idea behind the linked list
+
+
+important Point to remember
+
+Just like arraylist linkedlist also implements the List interface 
+
+			          List
+           			 /    \
+          			 /      \
+  			 ArrayList    LinkedList
+
+therefore both can perform some common list Operations
+add()
+get()
+set()
+remove()
+contains()
+size()
+
+
+Why Linked List only .?
+
+Assume you have the following
+
+[ Rahul ][ Priya ][ Arjun ][ Sneha ][ Kiran ]
+
+now you want to inset Kiran between Priya and Arjun
+
+with Array Based Liked List we will do the following
+
+Before:
+
+Rahul | Priya | Arjun | Sneha
+              ↓
+we need to shift all the values from Arjun to end so that we can insert the new Value
+
+After:
+
+Rahul | Priya | Kiran | Arjun | Sneha
+
+
+Since Liked List uses the Concept of nodes and linking this will be easy
+ 
+[ Rahul ] → [ Priya ]  [ Arjun ] → [ Sneha ]
+		|	   |	
+		[Kiran]  -->
 
 
 
+[ Rahul ] → [ Priya ]  → [Kiran]  → [ Arjun ] → [ Sneha ]
+
+
+LinkedList Specific Methods
+
+addFirst()
+addLast()
+getFirst()
+getLast()
+removeFirst()
+removeLast()
+
+Task:
+Music Playlist Manager
+
+Problem Statement
+
+You are building a simple music playlist application.
+
+The user wants to maintain a playlist where songs can be:
+
+Added to the playlist
+Added to the beginning
+Added to the end
+Removed from the beginning
+Removed from the end
+Searched
+Updated
+Displayed
+Since songs can frequently be added or removed from the beginning and end, use a LinkedList
+Requirements
+1. Add a new song -> add()
+2. Add a song at the beginning -> addFirst()
+3. Add a song at the end -> addLast()
+4. Display the first song -> getFrist()
+5. Display the last song -> getLast()
+6. Remove the first song -> removeFirst()
+7. Remove the last song -> removeLast()
+8. Search for a song -> contains()
+9. Update a song -> set()
+10. Display all songs -> use the LinkedList Name or use the foreach loop
+11. Display the number of songs -> size()
 
 
 
