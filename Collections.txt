@@ -275,7 +275,58 @@ Requirements
 
 
 
+3. HashSet
+==========
 
+HashSet is a class in the Collection Framework that implements Set Interface
+
+
+Features:
+	Does not Allow Duplicate Elements
+	Does not follow insertion order
+	Allows only one null value
+	Does not support Index-based Access.
+	Provides efficient Adding, removing and searching.
+
+Important Methods of HashSet
+
+add()
+remove()
+contains()
+size()
+isEmpty()
+clear()
+
+
+HashSet vs ArrayList vs LinkedList
+
+Feature 		ArrayList		LinkedList		HashSet
+Duplicates		Allowed			Allowed			Not Allowed
+maintains order		Yes			Yes			No
+IndexBasedAccess	Yes			Yes			No
+Allows Null		Yes			Yes			only one Null value
+Main use		General List		List, Deque operations	Unique Elements
+
+ 
+Practical Task:
+Student Registration System
+Problem statement
+Your college is organizing a technical fest. Students can register for the event, but some students may accidentally register multiple times.
+
+As a Java developer, create a College Event Registration System using HashSet to store only unique student names.
+
+
+Requirements
+
+1. Create a HashSet<String> to store the student Names.
+2. Add some Students to the HashSet
+3. Try Registering Few Already Registered Students
+4. Display All the Registered Students
+5. Check Weather Pavan is Registered or not
+6. Remove Pavan from the students.
+7. Display total Number of Unique Registered Students
+8. Display all the students using Enhanced For Loop(For Each Loop)
+9. Clear all the registrations and check weather the set is empty or not
 
 
 
