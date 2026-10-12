@@ -1,6 +1,6 @@
 package org.anudip.model;
 
-public class User {
+public abstract class User {
 	
 	// private fields 
 	// constructor 
