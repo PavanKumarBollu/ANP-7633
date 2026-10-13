@@ -36,13 +36,32 @@ public class StudentService {
 			System.out.println("Student Storage is full");
 			return false;
 		}
-		
+		// check for duplicate student id
+		if(searchStudentById(student.getUserId()) != null)
+		{
+			System.out.println("A Student With ID " + student.getUserId() + " already Exists");
+			return false;
+		}
 		students[studentCount] = student;
 		studentCount++;
 		System.out.println("Student Registered Successfully");
 		return true;
 		
 	}
+	
+	public Student searchStudentById(int studentId)
+	{
+		for(int i = 0 ; i < studentCount; i++)
+		{
+			if(students[i].getUserId() == studentId)
+			{
+				return students[i];
+			}
+		}
+		return null;
+	}
+	
+	
 
 	// returns the number of registered students
 	public int getStudentCount() {
