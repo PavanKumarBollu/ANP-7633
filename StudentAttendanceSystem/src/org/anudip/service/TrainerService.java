@@ -14,6 +14,16 @@ public class TrainerService {
 	}
 	
 	
+	public Trainer[] getTrainers() {
+		return trainers;
+	}
+
+
+	public int getTrainerCount() {
+		return trainerCount;
+	}
+
+
 	public boolean registerTrainer(Trainer trainer) {
 		if (trainer == null) {
 			System.out.println("trainer Cannot be null");
