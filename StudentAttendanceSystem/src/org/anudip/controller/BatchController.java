@@ -40,6 +40,17 @@ public class BatchController {
 		batchService.createBatch(id, batchName, capacity);
 
 	}
+	
+	
+	public void assignTrainer()
+	{
+		System.out.println("\n --- assign Trainer ---");
+		
+		int batchId = readInteger("Enter Batch ID :");
+		int trainerId = readInteger("Enter Trainer ID:");
+		
+		batchService.assignTrainerToBatch(batchId, trainerId);
+	}
 
 	public void enrolleStudent() {
 		System.out.println("\n --- Enroll Student ---");

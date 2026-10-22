@@ -5,48 +5,50 @@ import java.time.LocalDate;
 public class AttendanceRecord {
 
 	private int studentId;
+	private int batchId;
 	private LocalDate sessionDate;
-	private boolean present;// true means present false means absent
+	private AttendanceStatus status;
+	
+	
 
-	public AttendanceRecord(int studentId, LocalDate sessionDate, boolean present) {
-		super();
+	public AttendanceRecord(int studentId, int batchId, LocalDate sessionDate, AttendanceStatus status) {
 		this.studentId = studentId;
+		this.batchId = batchId;
 		this.sessionDate = sessionDate;
-		this.present = present;
+		this.status = status;
 	}
+
+
+
+	public void displayAttendance() {
+		System.out.println("Student Id : " + studentId);
+		System.out.println("Batch Id   : " + batchId);
+		System.out.println("SessionDate: " + sessionDate);
+		System.out.println("Status     : " + status);
+	}
+
+
 
 	public int getStudentId() {
 		return studentId;
 	}
 
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
+
+
+	public int getBatchId() {
+		return batchId;
 	}
+
+
 
 	public LocalDate getSessionDate() {
 		return sessionDate;
 	}
 
-	public void setSessionDate(LocalDate sessionDate) {
-		this.sessionDate = sessionDate;
-	}
 
-	public boolean isPresent() {
-		return present;
-	}
 
-	public void setPresent(boolean present) {
-		this.present = present;
-	}
-
-	public void displayAttendance() {
-		System.out.println("Student Id : " + studentId);
-		System.out.println("Date       : " + sessionDate);
-
-		if (present)
-			System.out.println("Status : Present");
-		else
-			System.out.println("Status : Absent");
+	public AttendanceStatus getStatus() {
+		return status;
 	}
 
 }

@@ -41,6 +41,11 @@ public class Main {
 			System.out.println("4. Register Trainer ");
 			System.out.println("5. Search Trainer ");
 			System.out.println("6. Display All the Trainers ");
+			System.out.println("7. Create Batch");
+			System.out.println("8. Assign Trainer to Batch");
+			System.out.println("9. Enroll Student in Batch");
+			System.out.println("10. Display All Batches");
+			System.out.println("11. Search Batch");
 			
 			
 			
@@ -61,71 +66,59 @@ public class Main {
 			case 1:
 				studentController.registerStudent();
 				break;
+				
 			case 2:
 				studentController.searchStudent();
 				break;
+				
 			case 3:
 				studentController.dispalyAllStudents();
 				break;
+				
 			case 4:
 				trainerController.registerTrainer();;
 				break;
+				
 			case 5:
 				trainerController.searchTrainer();;
 				break;
+				
 			case 6:
 				trainerController.dispalyAllTrainers();
 				break;
 				
+			case 7:
+				batchController.createBatch();
+				break;
 				
+			case 8:
+				batchController.assignTrainer();
+				break;
+				
+			case 9:
+				batchController.enrolleStudent();
+				break;
+				
+			case 10:
+				batchController.dispalyAllBatches();
+				break;
+				
+			case 11:
+				batchController.searchBatch();
+				break;	
 				
 			case 0:
 				running = false;
 				System.out.println("Application closed");
 				break;
+				
 			default:
 				System.out.println("Invalid Choice Try Again.... ");
 				
 			}
 		}
 		
-		
 		scanner.close();
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		 * // this is the staring file of our application as of now // write the code to
-		 * test the application // code we have writtened so far
-		 * 
-		 * Student student = new Student( 101, "Rahul", "9876543210", "9876501234",
-		 * "Java Batch A" );
-		 * 
-		 * Trainer trainer = new Trainer( 201, "Anjali", "9123456780", "Java Batch A" );
-		 * 
-		 * AttendanceRecord record = new AttendanceRecord( 101, LocalDate.now(), false
-		 * );
-		 * 
-		 * System.out.println("=== STUDENT DETAILS ==="); student.displayDetails();
-		 * 
-		 * System.out.println("\n=== TRAINER DETAILS ==="); trainer.displayDetails();
-		 * 
-		 * System.out.println("\n=== ATTENDANCE DETAILS ===");
-		 * record.displayAttendance();
-		 */
 
 	}
 

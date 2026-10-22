@@ -49,14 +49,17 @@ public class BatchService {
 
 		if (batchName == null || batchName.trim().isEmpty()) {
 			System.out.println("Batch Name is Required");
+			return false;
 
 		}
 		if (searchBatchById(batchId) != null) {
 			System.out.println("Batch Already Exists");
+			return false;
 		}
 
 		if (searchBatchByName(batchName.trim()) != null) {
 			System.out.println("Batch Name Already Exists");
+			return false;
 		}
 		if (batchCount >= batches.length) {
 			System.out.println("Batch Storage is full");
