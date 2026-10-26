@@ -1,0 +1,54 @@
+1. Write a program to input two numbers and find the maximum between two numbers using the conditional/ternary operator.
+ Sample Input: 
+	num1 = 10
+	num2 = 30
+	answer : 30 is the max number
+2.Write a program to check whether a number is a Strong number or not.
+Strong number is a special number whose sum of factorial of digits is equal to the
+original number.
+For example: 145 is a strong number. Since, 1! + 4! + 5! = 145
+[Hint: conditional operator, method, use parameterized method to take input]
+
+3.Write a program to check leap year using if else. How to check whether a given year
+is a leap year or not.
+[Hint: Take an input of any number. Store it in some variable say year.
+If a year is exactly divisible by 4 and not divisible by 100, then it is a leap year. Or if a
+year is exactly divisible by 400 then it is a leap year.]
+
+4.Create a program to calculate the annual salary of an employee by using inheritance.
+Create a class named "User" with the following properties and methods:
+Properties:
+id(int): representing the id of the User
+name(String):representing the name of the User
+Constructor:
+Declare parameterized constructor to initialize id and name.
+Create a subclass named "Employee" that inherits from the "User" class. Add the
+following additional properties and methods:
+Properties:
+salary(double):representing the monthly salary of the employee
+Method:
+double calculateAnnualSalary():to calculate the annual salary earned by the employee.
+In the main method, create an object of "Employee" class. Calculate the annual salary
+of the employee and display it..
+[Hint:Use constructor or setter methods to set the value]
+5.Create one superclass HillStations and three subclasses Manali, Mussoorie,
+Gulmarg. Subclasses extend the superclass and override its location() and famousFor()
+method.
+i.call the location() and famousFor() method by the Parent class’, i.e. Hillstations class.
+As it refers to the base class object and the base class method overrides the superclass
+method; the base class method is invoked at runtime.
+ii.call the location() and famousFor() method by the all subclass’,and print accordingly
+
+6.Create abstract class vaccine.Create two variables age(int),nationality(String).create 2
+concrete methods firstDose() and secondDose().
+Scenario 1:user can take the first dose if the user is Indian and age is 18.After
+vaccination the user has to pay 250rs(which will be displayed on the console).
+Scenario 2: Users are eligible to take the second dose only after completing the first
+dose.
+Scenario 3: create abstract method boosterDose() in abstract class Vaccine.Create one
+implementation class vaccinationSuccessful, where implement boosterDose() method.
+Create main class vaccination and invoke all methods accordingly.
+[Hint:Create constructor to initialize variables age and nationality,Use flow
+control(If-else) to check condition]
+
+
