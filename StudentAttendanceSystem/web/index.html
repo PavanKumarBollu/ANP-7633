@@ -96,6 +96,59 @@
 				</table>
             </div>
         </section>
+
+		<section class="panel" id="trainers">
+		    <h2>Register Trainer</h2>
+
+		    <form id="trainerForm">
+		        <label for="trainerId">Trainer ID</label>
+		        <input id="trainerId" type="number" required min="1">
+
+		        <label for="trainerName">Trainer Name</label>
+		        <input id="trainerName" required>
+
+		        <label for="trainerPhone">Phone Number</label>
+		        <input id="trainerPhone" type="tel" required>
+
+		        <button type="submit">Register Trainer</button>
+		    </form>
+
+		    <p id="trainerMessage" role="status"></p>
+		</section>
+
+		<section class="panel">
+		    <h2>Trainer Directory</h2>
+
+		    <div class="search">
+		        <input id="searchTrainerId"
+		               type="number"
+		               placeholder="Search by Trainer ID">
+
+		        <button id="searchTrainerButton" type="button">
+		            Search
+		        </button>
+
+		        <button id="allTrainersButton"
+		                type="button"
+		                class="secondary">
+		            Show All
+		        </button>
+		    </div>
+
+		    <div class="table-wrap">
+		        <table>
+		            <thead>
+		                <tr>
+		                    <th>Trainer ID</th>
+		                    <th>Name</th>
+		                    <th>Phone</th>
+		                </tr>
+		            </thead>
+		            <tbody id="trainerTable"></tbody>
+		        </table>
+		    </div>
+		</section>
+
     </main>
 
     <script>
@@ -198,6 +251,110 @@
 
 		loadStudents();
      
+		
+
+		const trainerForm = document.getElementById("trainerForm");
+		const trainerMessage = document.getElementById("trainerMessage");
+		const trainerTable = document.getElementById("trainerTable");
+
+		async function loadTrainers(url = "/api/trainers") {
+		    try {
+		        const response = await fetch(url);
+		        const data = await response.json();
+
+		        trainerTable.replaceChildren();
+
+		        if (!response.ok) {
+		            trainerMessage.textContent =
+		                data.message || "Unable to load trainers.";
+		            return;
+		        }
+
+		        const trainers = Array.isArray(data) ? data : [data];
+
+		        trainers.forEach(trainer => {
+		            const row = document.createElement("tr");
+
+		            [
+		                trainer.id,
+		                trainer.name,
+		                trainer.phone
+		            ].forEach(value => {
+		                const cell = document.createElement("td");
+		                cell.textContent = value ?? "";
+		                row.appendChild(cell);
+		            });
+
+		            trainerTable.appendChild(row);
+		        });
+
+		        if (trainers.length === 0) {
+		            trainerMessage.textContent = "No trainers registered yet.";
+		        } else {
+		            trainerMessage.textContent =
+		                `Trainers found: ${trainers.length}`;
+		        }
+
+		    } catch (error) {
+		        trainerMessage.textContent =
+		            "Could not connect to the trainer API.";
+		    }
+		}
+
+		trainerForm.addEventListener("submit", async event => {
+		    event.preventDefault();
+
+		    const trainer = {
+		        id: document.getElementById("trainerId").value.trim(),
+		        name: document.getElementById("trainerName").value.trim(),
+		        phone: document.getElementById("trainerPhone").value.trim()
+		    };
+
+		    try {
+		        const response = await fetch("/api/trainers", {
+		            method: "POST",
+		            headers: {
+		                "Content-Type": "application/x-www-form-urlencoded"
+		            },
+		            body: new URLSearchParams(trainer).toString()
+		        });
+
+		        const result = await response.json();
+		        trainerMessage.textContent = result.message;
+
+		        if (response.ok) {
+		            trainerForm.reset();
+		            await loadTrainers();
+		        }
+
+		    } catch (error) {
+		        trainerMessage.textContent =
+		            "Could not connect to the Java server.";
+		    }
+		});
+
+		document.getElementById("searchTrainerButton")
+		    .addEventListener("click", () => {
+		        const id = document.getElementById("searchTrainerId")
+		            .value.trim();
+
+		        if (!id) {
+		            trainerMessage.textContent = "Enter a trainer ID.";
+		            return;
+		        }
+
+		        loadTrainers("/api/trainers?id=" + encodeURIComponent(id));
+		    });
+
+		document.getElementById("allTrainersButton")
+		    .addEventListener("click", () => {
+		        document.getElementById("searchTrainerId").value = "";
+		        loadTrainers();
+		    });
+
+		// Load trainers when the page opens
+		loadTrainers();
+
 	
     </script>
 </body>

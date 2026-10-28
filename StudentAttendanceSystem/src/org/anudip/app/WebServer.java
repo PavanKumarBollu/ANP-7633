@@ -6,6 +6,8 @@ import com.sun.net.httpserver.HttpServer;
 
 import org.anudip.controller.StudentWebHandler;
 import org.anudip.service.StudentService;
+import org.anudip.service.TrainerService;
+import org.anudip.controller.TrainerWebHandler;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -18,16 +20,25 @@ public class WebServer {
 
         // Create the existing student service
         StudentService studentService = new StudentService(100);
+        TrainerService trainerService = new TrainerService(50);
 
         // Start the server on your computer
         HttpServer server = HttpServer.create(
                 new InetSocketAddress("127.0.0.1", 8080), 0);
+        
+        
+
 
         // Existing student API
         server.createContext(
                 "/api/students",
                 new StudentWebHandler(studentService));
 
+        // Add this trainer API
+        server.createContext(
+        		"/api/trainers",
+        		new TrainerWebHandler(trainerService)
+        		);
         // Load the HTML page
         server.createContext("/", exchange -> {
             String requestPath = exchange.getRequestURI().getPath();
@@ -40,6 +51,7 @@ public class WebServer {
                 sendText(exchange, 404, "Page not found: " + requestPath);
             }
         });
+        
 
         server.start();
 
