@@ -24,6 +24,7 @@ public class StudentService {
 		}
 		if (student.getName() == null || student.getName().trim().isEmpty()) {
 			System.out.println("Student Name is Required");
+			return false;
 		}
 		if (student.getPhoneNumber() == null || student.getPhoneNumber().trim().isEmpty()
 				|| student.getParentPhoneNumber() == null || student.getParentPhoneNumber().trim().isEmpty()

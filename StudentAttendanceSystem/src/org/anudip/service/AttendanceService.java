@@ -9,7 +9,6 @@ import org.anudip.model.AttendanceStatus;
 import org.anudip.model.Batch;
 
 
-
 public class AttendanceService {
 
     private AttendanceSession[] sessions;

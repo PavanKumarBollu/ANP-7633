@@ -1,0 +1,204 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <aside class="sidebar">
+        <h2>AttendEase</h2>
+        <p>Management System</p>
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#students">Students</a>
+            <a href="#trainers">Trainers</a>
+            <a href="#batches">Batches</a>
+            <a href="#attendance">Attendance</a>
+        </nav>
+    </aside>
+
+    <main>
+        <header>
+            <div>
+                <h1>Student Management</h1>
+                <p>Manage your students from one place.</p>
+            </div>
+            <span class="status">Local application</span>
+        </header>
+
+        <section class="stats">
+            <div class="card">
+                <p>Total Students</p>
+                <h2 id="total">0</h2>
+            </div>
+            <div class="card">
+                <p>Application</p>
+                <h2>Running</h2>
+            </div>
+        </section>
+
+        <section class="panel" id="students">
+            <h2>Register Student</h2>
+
+
+			<form id="studentForm">
+			    <label>Student ID</label>
+			    <input id="studentId" type="number" required min="1">
+
+			    <label>Student Name</label>
+			    <input id="studentName" required>
+
+			    <label>Phone Number</label>
+			    <input id="phone" type="tel" required>
+
+			    <label>Parent Phone Number</label>
+			    <input id="parentPhone" type="tel" required>
+
+			    <label>Batch Code</label>
+			    <input id="batch" required>
+
+			    <button type="submit">Register Student</button>
+			</form>
+
+			<p id="message" role="status"></p>
+
+        </section>
+
+        <section class="panel">
+            <h2>Student Directory</h2>
+
+            <div class="search">
+                <input id="searchId"
+                       placeholder="Search by Student ID">
+                <button id="searchButton" type="button">
+                    Search
+                </button>
+                <button id="allButton" type="button" class="secondary">
+                    Show All
+                </button>
+            </div>
+
+            <div class="table-wrap">
+				<table>
+				    <thead>
+				        <tr>
+				            <th>Student ID</th>
+				            <th>Name</th>
+				            <th>Phone</th>
+				            <th>Parent Phone</th>
+				            <th>Batch</th>
+				        </tr>
+				    </thead>
+				    <tbody id="studentTable"></tbody>
+				</table>
+            </div>
+        </section>
+    </main>
+
+    <script>
+
+		const form = document.getElementById("studentForm");
+		const message = document.getElementById("message");
+		const table = document.getElementById("studentTable");
+
+		async function loadStudents(url = "/api/students") {
+		    try {
+		        const response = await fetch(url);
+		        const data = await response.json();
+
+		        if (!response.ok) {
+		            throw new Error(data.message || "Unable to load students");
+		        }
+
+		        // Search can return one student or a list.
+		        const students = Array.isArray(data) ? data : [data];
+
+		        table.replaceChildren();
+
+		        students.forEach(student => {
+		            const row = document.createElement("tr");
+
+		            [
+		                student.id,
+		                student.name,
+		                student.phone,
+		                student.parentPhone,
+		                student.batch
+		            ].forEach(value => {
+		                const cell = document.createElement("td");
+		                cell.textContent = value ?? "";
+		                row.appendChild(cell);
+		            });
+
+		            table.appendChild(row);
+		        });
+
+		        document.getElementById("total").textContent =
+		            students.length;
+
+		        if (students.length === 0) {
+		            message.textContent = "No students found.";
+		        }
+		    } catch (error) {
+		        message.textContent =
+		            "Could not load students. Check that the Java server is running.";
+		    }
+		}
+
+		form.addEventListener("submit", async event => {
+		    event.preventDefault();
+
+		    const student = {
+		        id: document.getElementById("studentId").value.trim(),
+		        name: document.getElementById("studentName").value.trim(),
+		        phone: document.getElementById("phone").value.trim(),
+		        parentPhone: document.getElementById("parentPhone").value.trim(),
+		        batch: document.getElementById("batch").value.trim()
+		    };
+
+		    try {
+		        const response = await fetch("/api/students", {
+		            method: "POST",
+		            headers: {
+		                "Content-Type": "application/x-www-form-urlencoded"
+		            },
+		            body: new URLSearchParams(student).toString()
+		        });
+
+		        const result = await response.json();
+		        message.textContent = result.message;
+
+		        if (response.ok) {
+		            form.reset();
+		            await loadStudents();
+		        }
+		    } catch (error) {
+		        message.textContent = "Could not connect to the Java server.";
+		    }
+		});
+
+		document.getElementById("searchButton").addEventListener("click", () => {
+		    const id = document.getElementById("searchId").value.trim();
+
+		    if (!id) {
+		        message.textContent = "Enter a student ID to search.";
+		        return;
+		    }
+
+		    loadStudents("/api/students?id=" + encodeURIComponent(id));
+		});
+
+		document.getElementById("allButton").addEventListener("click", () => {
+		    document.getElementById("searchId").value = "";
+		    loadStudents();
+		});
+
+		loadStudents();
+     
+	
+    </script>
+</body>
+</html>
